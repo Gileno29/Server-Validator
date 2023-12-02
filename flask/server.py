@@ -24,15 +24,16 @@ def valida_template():
 
 @app.route('/valida_ssh', methods=['POST'])
 def valida_ssh():
+    print("FUI CHAMADO", request.form)
     username = request.form['username']
     print(username)
     password = request.form['password']
     print(password)
     port=request.form['port']
     ip=request.form['ip']
-    ssh.test_ssh_connection()
-
-   
+    print("Dados da sessão: ", username,password, port, ip)
+    
+    return ssh.test_ssh_connection(ip, password,username, 22)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)

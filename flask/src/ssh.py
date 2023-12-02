@@ -32,5 +32,6 @@ def test_ssh_connection(ip, password, user, porta=22):
 
         # Exibir mensagem com os resultados
         result_message = f"Conexão SSH estabelecida com sucesso!\n\n{group_message}\n{password_message}"
+        return result_message
     except Exception as e:
         print(e)
