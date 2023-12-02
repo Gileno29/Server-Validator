@@ -30,6 +30,7 @@ def valida_ssh():
     print(password)
     port=request.form['port']
     ip=request.form['ip']
+    ssh.test_ssh_connection()
 
    
 

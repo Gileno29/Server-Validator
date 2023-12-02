@@ -1,18 +1,16 @@
 import paramiko
-import tkinter as tk
-from tkinter import messagebox
-import tkinter.scrolledtext as scrolledtext
-import pyperclip
 
-def test_ssh_connection():
-    hostname = entry_hostname.get()
-    username = entry_username.get()
-    password = entry_password.get()
+
+def test_ssh_connection(ip, password, user, porta=22):
+    hostname = ip
+    port=porta
+    username = password
+    password = user
 
     try:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname, username=username, password=password)
+        client.connect(hostname, username=username, password=password, port=port)
 
         # Verificar se o usuário está no grupo sudo
         stdin, stdout, stderr = client.exec_command("groups")
@@ -34,14 +32,5 @@ def test_ssh_connection():
 
         # Exibir mensagem com os resultados
         result_message = f"Conexão SSH estabelecida com sucesso!\n\n{group_message}\n{password_message}"
-        messagebox.showinfo("Resultados", result_message)
-
-        # Copiar a mensagem para a área de transferência
-        pyperclip.copy(result_message)
-        messagebox.showinfo("Copiado", "A mensagem foi copiada para a área de transferência.")
-    except paramiko.AuthenticationException:
-        messagebox.showerror("Erro de autenticação", "Falha na autenticação. Verifique o nome de usuário e senha.")
-    except paramiko.SSHException as e:
-        messagebox.showerror("Erro de conexão SSH", f"Erro na conexão SSH: {str(e)}")
-    except paramiko.Exception as e:
-        messagebox.showerror("Erro", f"Erro: {str(e)}")
+    except Exception as e:
+        print(e)
