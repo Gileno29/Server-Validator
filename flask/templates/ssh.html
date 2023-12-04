@@ -1,6 +1,11 @@
 
 
 {% include "header.html" %}
+<script> ('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  }) </script>
+
+  
 <div class="container mt-5" >
         <div class="row md-6">
             <div class="modal-content">
@@ -51,12 +56,41 @@
             </div>
         </div>
         {% if conexao %}
-            <div class="row-md-5 ml-5">
+
+            <!--MODAL POP UP-->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="myModalLabel">Sucesso!</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>A operação foi realizada com sucesso.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+            <!--end modal pop up-->
+
+            <div class="row-md-5 ml-5" onload="">
                 <div class="container">
                     <h1>Campo de copiar e colar</h1>
                 
                     <div class="input-group">
-                      <input type="text" class="form-control" id="texto-a-copiar">
+                     
+                        
+                      <div type="text" class="form-control" id="texto-a-copiar">
+                        ip
+                        porta
+                        senha
+                      </div>
                       <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="btn-copiar">Copiar</button>
                       </div>
