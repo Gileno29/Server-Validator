@@ -50,6 +50,29 @@
                 </div>
             </div>
         </div>
+        {% if conexao %}
+            <div class="row-md-5 ml-5">
+                <div class="container">
+                    <h1>Campo de copiar e colar</h1>
+                
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="texto-a-copiar">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="btn-copiar">Copiar</button>
+                      </div>
+                    </div>
+                
+                    <script>
+                      // Atribuir um evento de clique ao botão
+                      document.getElementById("btn-copiar").addEventListener("click", function() {
+                        // Copiar o texto do campo de entrada para a área de transferência
+                        var texto = document.getElementById("texto-a-copiar").value;
+                        navigator.clipboard.writeText(texto);
+                      });
+                    </script>
+                  </div>
+            </div>
+        {% endif %}
     
 </div>
  
