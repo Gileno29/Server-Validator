@@ -112,12 +112,16 @@
                       // Atribuir um evento de clique ao botão
                       function copiarTexto() {
                         let textoCopiado = document.getElementsByClassName("texto-a-copiar");
-                        console.log(textoCopiado[0].innerText)
-                        
-                        textoCopiado.select();
-                        textoCopiado.setSelectionRange(0, 99999)
-                        document.execCommand("copy");
-                        alert("O texto é: " + textoCopiado.value);}
+                        let text=''
+                        console.log(textoCopiado)
+                        Array.prototype.forEach.call(textoCopiado, function(el) {
+                          text= text+el.innerText+ "\n"
+                          console.log(text)
+                        });
+                        navigator.clipboard.writeText(text);
+                        //textoCopiado.setSelectionRange(0, 99999)
+                        //document.execCommand("copy");
+                        alert("O texto é: " + text.value);}
 
                     </script>
                   </div>
