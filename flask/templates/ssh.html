@@ -1,9 +1,10 @@
 
 
 {% include "header.html" %}
-<script> ('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  }) </script>
+<script> function showmodal(){
+  $('#myModal').modal('show')
+
+}</script>
 
   
 <div class="container mt-5" >
@@ -79,30 +80,45 @@
 
             <!--end modal pop up-->
 
-            <div class="row-md-5 ml-5" onload="">
+            <div class="row-md-5 ml-5" onload="showmodal()">
                 <div class="container">
                     <h1>Campo de copiar e colar</h1>
                 
                     <div class="input-group">
                      
                         
-                      <div type="text" class="form-control" id="texto-a-copiar">
-                        ip
-                        porta
-                        senha
+
+                      <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"></h5>
+                          {% if dados %}
+                            <p class="card-text texto-a-copiar" id="texto-a-copiar"> IP: {{ dados['ip'] }}</p>
+                            <p class="card-text texto-a-copiar" id="texto-a-copiar"> Porta: {{ dados['port'] }}</p>
+                            <p class="card-text texto-a-copiar" id="texto-a-copiar">Usuario: {{ dados['username'] }}</p>
+                            <p class="card-text texto-a-copiar" id="texto-a-copiar">Senha: {{ dados['password'] }}</p>
+                          {% endif %}
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto()">Copiar</button>
+                        </div>
+                        </div>
                       </div>
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="btn-copiar">Copiar</button>
-                      </div>
+                      <!--<textarea class="card" id="texto-a-copiar" rows="5" disabled="disabled"  >
+                        
+                      </textarea>-->
+                      
                     </div>
                 
                     <script>
                       // Atribuir um evento de clique ao botão
-                      document.getElementById("btn-copiar").addEventListener("click", function() {
-                        // Copiar o texto do campo de entrada para a área de transferência
-                        var texto = document.getElementById("texto-a-copiar").value;
-                        navigator.clipboard.writeText(texto);
-                      });
+                      function copiarTexto() {
+                        let textoCopiado = document.getElementsByClassName("texto-a-copiar");
+                        console.log(textoCopiado[0].innerText)
+                        
+                        textoCopiado.select();
+                        textoCopiado.setSelectionRange(0, 99999)
+                        document.execCommand("copy");
+                        alert("O texto é: " + textoCopiado.value);}
+
                     </script>
                   </div>
             </div>
