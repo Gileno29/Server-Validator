@@ -108,22 +108,10 @@
                       
                     </div>
                 
-                    <script>
-                      // Atribuir um evento de clique ao botão
-                      function copiarTexto() {
-                        let textoCopiado = document.getElementsByClassName("texto-a-copiar");
-                        let text=''
-                        console.log(textoCopiado)
-                        Array.prototype.forEach.call(textoCopiado, function(el) {
-                          text= text+el.innerText+ "\n"
-                          console.log(text)
-                        });
-                        navigator.clipboard.writeText(text);
-                        //textoCopiado.setSelectionRange(0, 99999)
-                        //document.execCommand("copy");
-                        alert("O texto é: " + text.value);}
+                    <script src="../static/copy.js">
+                    
 
-                    </script>
+                  </script>
                   </div>
             </div>
         {% endif %}
