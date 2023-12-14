@@ -1,0 +1,8 @@
+#copiar{
+    resize: none;
+    /*white-space: preserve nowrap;*/
+    /*text-align: left;*/
+    align-content:center ;
+    overflow:auto ;
+    /*border:6px outset #000000;*/
+}

@@ -30,7 +30,7 @@
                     </div>
                     <div class="mb-3">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" name="password" placeholder="Senha">
+                    <input type="password" class="form-control" id="senha" name="password" placeholder="Senha" required>
                     </div>
                     <div>Mesma senha do root?</div>
                     <div class="form-check">
@@ -92,13 +92,19 @@
                         <div class="card-body">
                           <h5 class="card-title"></h5>
                           {% if dados %}
-                            <p class="card-text texto-a-copiar" id="texto-a-copiar"> IP: {{ dados['ip'] }}</p>
-                            <p class="card-text texto-a-copiar" id="texto-a-copiar"> Porta: {{ dados['port'] }}</p>
-                            <p class="card-text texto-a-copiar" id="texto-a-copiar">Usuario: {{ dados['username'] }}</p>
-                            <p class="card-text texto-a-copiar" id="texto-a-copiar">Senha: {{ dados['password'] }}</p>
+                          
+                          <div class="form-group">
+                            <label for="copiar">Example textarea</label>
+                            <textarea  disabled class="form-control" id="copiar" rows="5" cols="50" > 
+                            IP: {{ dados['ip'] }} 
+                            Porta: {{ dados['port'] }} 
+                            Usuario: {{ dados['username'] }} 
+                            Senha: {{ dados['password'] }}
+                            </textarea>
+                          </div>
                           {% endif %}
                         <div class="input-group-append">
-                          <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto()">Copiar</button>
+                          <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
                         </div>
                         </div>
                       </div>
@@ -108,7 +114,7 @@
                       
                     </div>
                 
-                    <script src="../static/copy.js">
+                    <script script type="text/javascript"   src="{{url_for('static', filename='copy.js' )}}"></script>
                     
 
                   </script>
