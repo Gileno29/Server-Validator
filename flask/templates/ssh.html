@@ -10,10 +10,6 @@
 <div class="container mt-5" >
         <div class="row md-6">
             <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="modal-ssh-label">Validar SSH</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
                 <form action="/valida_ssh" method="post">
                     <div class="mb-3">
@@ -70,9 +66,6 @@
                     <div class="modal-body">
                       <p>A operação foi realizada com sucesso.</p>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -82,30 +75,33 @@
 
             <div class="row-md-5 ml-5" onload="showmodal()">
                 <div class="container">
-                    <h1>Campo de copiar e colar</h1>
-                
                     <div class="input-group">
                      
-                        
-
-                      <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title"></h5>
                           {% if dados %}
-                          
-                          <div class="form-group">
-                            <label for="copiar">Example textarea</label>
-                            <textarea  disabled class="form-control" id="copiar" rows="5" cols="50" > 
-                            IP: {{ dados['ip'] }} 
-                            Porta: {{ dados['port'] }} 
-                            Usuario: {{ dados['username'] }} 
-                            Senha: {{ dados['password'] }}
-                            </textarea>
-                          </div>
+                            <div class="card" style="width: 18rem;">
+                              <div class="card-body">
+                                <h5 class="card-title"></h5>
+                            
+                              <div class="form-group">
+                                <label for="copiar">Example textarea</label>
+                                <textarea  disabled class="form-control" id="copiar" rows="5" cols="50" > 
+                                IP: {{ dados['ip'] }} 
+                                Porta: {{ dados['port'] }} 
+                                Usuario: {{ dados['username'] }} 
+                                Senha: {{ dados['password'] }}
+                                </textarea>
+                              </div>
+                              <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
+                              </div>
+                             {% else %}
+                                <!--<div onload="gerarAlerta('{{ conexao }}', true)"><div>-->
+                
+                              <div class="alert alert-danger alert-dismissible fade show" style="z-index: 0; position: absolute;" id="myAlert" role="alert">
+                                {{ conexao[0] }} <button class="btn btn-dark" title="close" onclick="removeAlert()">x</button>
+                              </div>
                           {% endif %}
-                        <div class="input-group-append">
-                          <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
-                        </div>
+                      
                         </div>
                       </div>
                       <!--<textarea class="card" id="texto-a-copiar" rows="5" disabled="disabled"  >
@@ -115,8 +111,16 @@
                     </div>
                 
                     <script script type="text/javascript"   src="{{url_for('static', filename='copy.js' )}}"></script>
+                    <script script type="text/javascript"   src="{{url_for('static', filename='gerarAlerta.js' )}}"></script>
                     
-
+                  <script> 
+                  function removeAlert() {
+                    document.getElementById("myAlert").remove()
+                    
+                  }
+                  function showAlert(){
+                    window.alert()
+                  }
                   </script>
                   </div>
             </div>

@@ -30,8 +30,9 @@ def valida_ssh():
     password=''
     port=''
     username=''
-
+    dados={}
     validator=FieldsValidator.FieldValidador()
+    print(request.form)
     if validator.ip_is_valid(request.form['ip']):
          ip=request.form['ip']
     else:
@@ -53,8 +54,12 @@ def valida_ssh():
     port=request.form['port']
     ip=request.form['ip']    
     conexao=ssh.test_ssh_connection(ip, password,username, port)
-    dados={'ip': ip, 'port':port, 'password':password, 'username':username}
-    return render_template('ssh.html', conexao=conexao, dados=dados )
+    if 'Servidor acessivel' in conexao:
+        dados={'ip': ip, 'port':port, 'password':password, 'username':username}
+        return render_template('ssh.html', conexao=conexao, dados=dados )
+    else:
+        dados=None
+        return render_template('ssh.html', conexao=conexao)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)
