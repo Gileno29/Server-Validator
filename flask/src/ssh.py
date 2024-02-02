@@ -22,7 +22,7 @@ def isSudo(conection):
 
 
 def test_ssh_connection(ip, password, user, porta=22):
-    conected=0
+    conected=[{'Conectado':1, 'erro':None}]
     client=None
     data={}
     try:
@@ -33,15 +33,18 @@ def test_ssh_connection(ip, password, user, porta=22):
         conected=1
     except Exception as e:
         print(e)
-        conected=[0,e]
+        conected[0]['Conectado']=0
+        conected[0]['erro']=e
 
-    if conected==1:
+    if conected[0]['Conectado']==1:
         data= isSudo(client)
     
-        if (data["grupo"]=="is sudo" and  data['password']=='same') or data["grupo"]=="is not sudo" and  data['password']=='same':
+        if (data["grupo"]=="is sudo" and  data['password']=='same'):
             client.close()
-            return ["Servidor acessivel", 1]
-            
+            return [{'Status':"Servidor acessivel", 'Permissao':'Possui permissão de super usuario'}]
+        elif data["grupo"]=="is not sudo" and  data['password']=='same':
+            return [{'Status':"Servidor acessivel", 'Permissao':'Não possui permissão de super usuario, é preciso acessar pelo usuario root'}]
+           
 
     # Exibir mensagem com os resultados
     #result_message = f"Conexão SSH estabelecida com sucesso!\n\n{group_message}\n{password_message}"
