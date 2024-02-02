@@ -29,8 +29,8 @@ def test_ssh_connection(ip, password, user, porta=22):
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(hostname=ip, username=user, password=password, port=porta)
-        print(client)
-        conected=1
+       # print(client)
+        conected=[{'Conectado':1, 'erro':None}]
     except Exception as e:
         print(e)
         conected[0]['Conectado']=0
@@ -41,13 +41,13 @@ def test_ssh_connection(ip, password, user, porta=22):
     
         if (data["grupo"]=="is sudo" and  data['password']=='same'):
             client.close()
-            return [{'Status':"Servidor acessivel", 'Permissao':'Possui permissão de super usuario'}]
+            return [{'status':"Servidor acessivel", 'Permissao':'Possui permissão de super usuario'}]
         elif data["grupo"]=="is not sudo" and  data['password']=='same':
-            return [{'Status':"Servidor acessivel", 'Permissao':'Não possui permissão de super usuario, é preciso acessar pelo usuario root'}]
+            return [{'status':"Servidor acessivel", 'Permissao':'Não possui permissão de super usuario, é preciso acessar pelo usuario root'}]
            
 
     # Exibir mensagem com os resultados
     #result_message = f"Conexão SSH estabelecida com sucesso!\n\n{group_message}\n{password_message}"
-    return  ["Servidor Inacessivel", conected ]
+    return  [{'status':"Servidor Inacessivel", "conected":conected}]
 
 

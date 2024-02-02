@@ -12,23 +12,33 @@
             <div class="modal-content">
                 <div class="modal-body">
                 <form action="/valida_ssh" method="post">
+                  <div class="img">
+                    
+                  </div>
                     <div class="mb-3">
-                    <label for="porta" class="form-label">Porta</label>
-                    <input type="text" class="form-control" id="porta" name="port" placeholder="Porta">
-                    </div>
+                    
                     <div class="mb-3">
-                    <label for="ip" class="form-label">IP</label>
-                    <input type="text" class="form-control" id="ip" name="ip" placeholder="IP">
+                      <label for="ip" class="form-label">IP</label>
+                      <input type="text" class="form-control" id="ip" name="ip" placeholder="IP">
+                    
                     </div>
+                      <label for="porta" class="form-label">Porta</label>
+                      <input type="text" class="form-control" id="porta" name="port" placeholder="Porta">
+                    </div>
+
                     <div class="mb-3">
-                    <label for="usuario" class="form-label">Usuário</label>
-                    <input type="text" class="form-control" id="usuario" name="username" placeholder="Usuário">
+                      <label for="usuario" class="form-label">Usuário</label>
+                      <input type="text" class="form-control" id="usuario" name="username" placeholder="Usuário">
                     </div>
+
                     <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" name="password" placeholder="Senha" required>
+                      <label for="senha" class="form-label">Senha</label>
+                      <input type="password" class="form-control" id="senha" name="password" placeholder="Senha" required>
                     </div>
-                    <div>Mesma senha do root?</div>
+
+                    <!--Teste para validação de mesma senha do root--->
+                    
+                    <!--<div>Mesma senha do root?</div>
                     <div class="form-check">
                         <input onclick="desabilita()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                         <label class="form-check-label" for="flexRadioDefault1" >
@@ -45,10 +55,10 @@
                     <div class="mb-3">
                         <label for="senha" class="form-label">Senha root</label>
                         <input type="input" class="form-control" id="senha_root" name="senha" placeholder="Senha do root">
-                    </div>
+                    </div>-->
 
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
+                    <button type="submit" class="btn btn-primary">Enviar</button> 
+                </form> 
                 </div>
             </div>
         </div>
@@ -78,27 +88,28 @@
                     <div class="input-group">
                      
                           {% if dados %}
-                            <div class="card" style="width: 18rem;">
+                            <div class="card mt-4 " style="width: 18rem;">
                               <div class="card-body">
                                 <h5 class="card-title"></h5>
                             
                               <div class="form-group">
-                                <label for="copiar">Example textarea</label>
+                                <!--<label for="copiar">Example textarea</label> -->
                                 <textarea  disabled class="form-control" id="copiar" rows="5" cols="50" > 
-                                IP: {{ dados['ip'] }} 
-                                Porta: {{ dados['port'] }} 
-                                Usuario: {{ dados['username'] }} 
-                                Senha: {{ dados['password'] }}
+                                  {{- dados -}}
                                 </textarea>
                               </div>
                               <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
+                                <button class="btn btn-primary mt-2" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
                               </div>
                              {% else %}
                                 <!--<div onload="gerarAlerta('{{ conexao }}', true)"><div>-->
                 
                               <div class="alert alert-danger alert-dismissible fade show" style="z-index: 0; position: absolute;" id="myAlert" role="alert">
-                                {{ conexao[0] }} <button class="btn btn-dark" title="close" onclick="removeAlert()">x</button>
+                                {{ conexao[0]  }} 
+                                {% for e in conexao[1] %}
+                                    {{ e.erro }}
+                                {% endfor %}
+                                <button class="btn btn-dark" title="close" onclick="removeAlert()">x</button>
                               </div>
                           {% endif %}
                       

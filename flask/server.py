@@ -54,8 +54,13 @@ def valida_ssh():
     port=request.form['port']
     ip=request.form['ip']    
     conexao=ssh.test_ssh_connection(ip, password,username, port)
-    if 'Servidor acessivel' in conexao:
-        dados={'ip': ip, 'port':port, 'password':password, 'username':username}
+    if 'Servidor acessivel' in conexao[0]['status']:
+        dados="""
+                ip: %s 
+                port: %s 
+                password: %s 
+                username:  %s
+                """%(ip,port,password,username)
         return render_template('ssh.html', conexao=conexao, dados=dados )
     else:
         dados=None
