@@ -21,33 +21,33 @@ def isSudo(conection):
     return data
 
 
-def test_ssh_connection(ip, password, user, porta=22):
-    conected=[{'Conectado':1, 'erro':None}]
-    client=None
-    data={}
+def conexao(dados):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname=ip, username=user, password=password, port=porta)
-       # print(client)
-        conected=[{'Conectado':1, 'erro':None}]
+        client.connect(hostname=dados['ip'], username=dados['user'], password=dados['password'], port=dados['porta'])
+        return [True, client]
     except Exception as e:
-        print(e)
-        conected[0]['Conectado']=0
-        conected[0]['erro']=e
+        return [False, e]
 
-    if conected[0]['Conectado']==1:
-        data= isSudo(client)
+def test_ssh_connection(ip, password, user, porta=22,):
+    dados={'ip':ip,'password':password,'user':user,'porta':porta}
+    conectado=conexao(dados)
+    data={}
+   
+    if conectado[0]==True:
+        data= isSudo(conectado[1])
     
         if (data["grupo"]=="is sudo" and  data['password']=='same'):
-            client.close()
-            return [{'status':"Servidor acessivel", 'Permissao':'Possui permissão de super usuario'}]
+           conectado[1].close()
+           return [{'status':"Servidor acessivel", 'Permissao':'Possui permissão de super usuario'}]
         elif data["grupo"]=="is not sudo" and  data['password']=='same':
             return [{'status':"Servidor acessivel", 'Permissao':'Não possui permissão de super usuario, é preciso acessar pelo usuario root'}]
-           
+  
+
 
     # Exibir mensagem com os resultados
     #result_message = f"Conexão SSH estabelecida com sucesso!\n\n{group_message}\n{password_message}"
-    return  [{'status':"Servidor Inacessivel", "conected":conected}]
+    return  [{'status':"Servidor Inacessivel", "conected":conectado}]
 
 

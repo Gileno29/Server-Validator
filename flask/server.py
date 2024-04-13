@@ -64,6 +64,7 @@ def valida_ssh():
         return render_template('ssh.html', conexao=conexao, dados=dados )
     else:
         dados=None
+        conexao="Servidor Inacessivel"
         return render_template('ssh.html', conexao=conexao)
 
 if __name__ == "__main__":

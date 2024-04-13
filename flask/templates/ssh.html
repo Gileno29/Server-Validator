@@ -1,44 +1,63 @@
-
-
 {% include "header.html" %}
-<script> function showmodal(){
-  $('#myModal').modal('show')
+<script>
+  function showmodal() {
+    $("#myModal").modal("show");
+  }
+</script>
 
-}</script>
+<div class="container mt-5">
+  <div class="row md-6">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="/valida_ssh" method="post">
+          <div class="img"></div>
+          <div class="mb-3">
+            <div class="mb-3">
+              <label for="ip" class="form-label">IP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="ip"
+                name="ip"
+                placeholder="IP"
+              />
+            </div>
+            <label for="porta" class="form-label">Porta</label>
+            <input
+              type="text"
+              class="form-control"
+              id="porta"
+              name="port"
+              placeholder="Porta"
+            />
+          </div>
 
-  
-<div class="container mt-5" >
-        <div class="row md-6">
-            <div class="modal-content">
-                <div class="modal-body">
-                <form action="/valida_ssh" method="post">
-                  <div class="img">
-                    
-                  </div>
-                    <div class="mb-3">
-                    
-                    <div class="mb-3">
-                      <label for="ip" class="form-label">IP</label>
-                      <input type="text" class="form-control" id="ip" name="ip" placeholder="IP">
-                    
-                    </div>
-                      <label for="porta" class="form-label">Porta</label>
-                      <input type="text" class="form-control" id="porta" name="port" placeholder="Porta">
-                    </div>
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Usuário</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usuario"
+              name="username"
+              placeholder="Usuário"
+            />
+          </div>
 
-                    <div class="mb-3">
-                      <label for="usuario" class="form-label">Usuário</label>
-                      <input type="text" class="form-control" id="usuario" name="username" placeholder="Usuário">
-                    </div>
+          <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input
+              type="password"
+              class="form-control"
+              id="senha"
+              name="password"
+              placeholder="Senha"
+              required
+            />
+          </div>
 
-                    <div class="mb-3">
-                      <label for="senha" class="form-label">Senha</label>
-                      <input type="password" class="form-control" id="senha" name="password" placeholder="Senha" required>
-                    </div>
+          <!--Teste para validação de mesma senha do root--->
 
-                    <!--Teste para validação de mesma senha do root--->
-                    
-                    <!--<div>Mesma senha do root?</div>
+          <!--<div>Mesma senha do root?</div>
                     <div class="form-check">
                         <input onclick="desabilita()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                         <label class="form-check-label" for="flexRadioDefault1" >
@@ -57,87 +76,137 @@
                         <input type="input" class="form-control" id="senha_root" name="senha" placeholder="Senha do root">
                     </div>-->
 
-                    <button type="submit" class="btn btn-primary">Enviar</button> 
-                </form> 
-                </div>
-            </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% if conexao %}
+
+  <!--MODAL POP UP-->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="myModal"
+    tabindex="-1"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Sucesso!</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-        {% if conexao %}
+        <div class="modal-body">
+          <p>A operação foi realizada com sucesso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <!--MODAL POP UP-->
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="myModalLabel">Sucesso!</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>A operação foi realizada com sucesso.</p>
-                    </div>
-                  </div>
-                </div>
+  <!--end modal pop up-->
+  <div class="row-md-5 ml-5" onload="showmodal()">
+    <div class="input-group">
+      {% if dados %}
+      <div class="card mt-4" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <!-- campo copia e cola-->
+          <div class="form-group mt-5">
+            <!--<label for="copiar">Example textarea</label> -->
+            <div class="row-md-5 ml-5">
+              <div class="container">
+                <textarea
+                  disabled
+                  class="form-control"
+                  id="copiar"
+                  rows="5"
+                  cols="50"
+                >
+ 
+                                        {{- dados -}}
+                                    </textarea
+                >
               </div>
-              
+            </div>
+          </div>
+          <div class="input-group-append">
+            <button
+              class="btn btn-primary mt-2"
+              type="button"
+              id="btn-copiar"
+              onclick="copiarTexto(copiar)"
+            >
+              Copiar
+            </button>
+          </div>
 
-            <!--end modal pop up-->
+          <!--Aleta de Sucesso--->
+            <div class="row-md-5 mt-5">
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                style="z-index: 0; position: absolute"
+                id="myAlert"
+                role="alert"
+              >
+                Conexao Estabelecida com Sucesso !!
+                <button
+                  class="btn btn-dark"
+                  title="close"
+                  onclick="removeAlert()"
+                >
+                  x
+                </button>
+              </div>
+            </div>
+          {% else %}
 
-            <div class="row-md-5 ml-5" onload="showmodal()">
-                <div class="container">
-                    <div class="input-group">
-                     
-                          {% if dados %}
-                            <div class="card mt-4 " style="width: 18rem;">
-                              <div class="card-body">
-                                <h5 class="card-title"></h5>
-                            
-                              <div class="form-group">
-                                <!--<label for="copiar">Example textarea</label> -->
-                                <textarea  disabled class="form-control" id="copiar" rows="5" cols="50" > 
-                                  {{- dados -}}
-                                </textarea>
-                              </div>
-                              <div class="input-group-append">
-                                <button class="btn btn-primary mt-2" type="button" id="btn-copiar" onclick="copiarTexto(copiar)">Copiar</button>
-                              </div>
-                             {% else %}
-                                <!--<div onload="gerarAlerta('{{ conexao }}', true)"><div>-->
-                
-                              <div class="alert alert-danger alert-dismissible fade show" style="z-index: 0; position: absolute;" id="myAlert" role="alert">
-                                {{ conexao[0]  }} 
-                                {% for e in conexao[1] %}
-                                    {{ e.erro }}
-                                {% endfor %}
-                                <button class="btn btn-dark" title="close" onclick="removeAlert()">x</button>
-                              </div>
-                          {% endif %}
-                      
-                        </div>
-                      </div>
-                      <!--<textarea class="card" id="texto-a-copiar" rows="5" disabled="disabled"  >
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            style="z-index: 0; position: absolute"
+            id="myAlert"
+            role="alert"
+          >
+            {{ conexao }}
+            <button class="btn btn-dark" title="close" onclick="removeAlert()">
+              x
+            </button>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <!--<textarea class="card" id="texto-a-copiar" rows="5" disabled="disabled"  >
                         
                       </textarea>-->
-                      
-                    </div>
-                
-                    <script script type="text/javascript"   src="{{url_for('static', filename='copy.js' )}}"></script>
-                    <script script type="text/javascript"   src="{{url_for('static', filename='gerarAlerta.js' )}}"></script>
-                    
-                  <script> 
-                  function removeAlert() {
-                    document.getElementById("myAlert").remove()
-                    
-                  }
-                  function showAlert(){
-                    window.alert()
-                  }
-                  </script>
-                  </div>
-            </div>
-        {% endif %}
-    
+    </div>
+
+    <script
+      script
+      type="text/javascript"
+      src="{{url_for('static', filename='copy.js' )}}"
+    ></script>
+    <script
+      script
+      type="text/javascript"
+      src="{{url_for('static', filename='gerarAlerta.js' )}}"
+    ></script>
+
+    <script>
+      function removeAlert() {
+        document.getElementById("myAlert").remove();
+      }
+      function showAlert() {
+        window.alert();
+      }
+    </script>
+  </div>
+  {% endif %}
 </div>
- 
 
 {% include "footer.html" %}
