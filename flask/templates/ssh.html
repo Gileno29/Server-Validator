@@ -1,14 +1,52 @@
 {% include "header.html" %}
 <script>
   function showmodal() {
-    $("#myModal").modal("show");
+    $("#modalError").modal("show");
   }
 </script>
 
+{% if conexao %}
+
+
+  {% if dados %}
+  <!--Aleta de Sucesso--->
+  <div class="toast fade show" role="alert"  aria-live="assertive" aria-atomic="true" id="myAlert">
+
+    <div class="toast-header">
+      <label class="badge bg-success me-1">!</label>
+      <strong class=”me-auto”>Sucesso</strong>  
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="close" onclick="removeAlert()">
+            </button>
+    </div>
+      <div class="toast-body">
+          Conexao estabelecidada com sucesso
+      </div>
+  </div>
+
+  {% else %}
+
+  {%endif%}
+{% endif %}
+
 <div class="container mt-5">
   <div class="row md-6">
-    <div class="modal-content">
-      <div class="modal-body">
+    <!--<div class="modal fade" id="meuModal" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="meuModalLabel">Título do Modal</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Este é o conteúdo do modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Ação Principal</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
         <form action="/valida_ssh" method="post">
           <div class="img"></div>
           <div class="mb-3">
@@ -78,113 +116,76 @@
 
           <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
-      </div>
-    </div>
   </div>
   {% if conexao %}
-
-  <!--MODAL POP UP-->
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="myModal"
-    tabindex="-1"
-    aria-labelledby="myModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">Sucesso!</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <p>A operação foi realizada com sucesso.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--end modal pop up-->
-  <div class="row-md-5 ml-5" onload="showmodal()">
+  <div class="row-md-5 ml-5" >
     <div class="input-group">
       {% if dados %}
       <div class="card mt-4" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <!-- campo copia e cola-->
-          <div class="form-group mt-5">
-            <!--<label for="copiar">Example textarea</label> -->
-            <div class="row-md-5 ml-5">
-              <div class="container">
-                <textarea
-                  disabled
-                  class="form-control"
-                  id="copiar"
-                  rows="5"
-                  cols="50"
-                >
- 
-                                        {{- dados -}}
-                                    </textarea
-                >
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <!-- campo copia e cola-->
+            <div class="form-group mt-5">
+              <!--<label for="copiar">Example textarea</label> -->
+              <div class="row-md-5 ml-5">
+                <div class="container">
+                  <textarea disabled class="form-control" id="copiar" rows="5" cols="50">{{- dados -}}</textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="input-group-append">
-            <button
-              class="btn btn-primary mt-2"
-              type="button"
-              id="btn-copiar"
-              onclick="copiarTexto(copiar)"
-            >
-              Copiar
-            </button>
-          </div>
-
-          <!--Aleta de Sucesso--->
-            <div class="row-md-5 mt-5">
-              <div
-                class="alert alert-success alert-dismissible fade show"
-                style="z-index: 0; position: absolute"
-                id="myAlert"
-                role="alert"
-              >
-                Conexao Estabelecida com Sucesso !!
+              <div class="input-group-append">
                 <button
-                  class="btn btn-dark"
-                  title="close"
-                  onclick="removeAlert()"
+                  class="btn btn-primary mt-2"
+                  type="button"
+                  id="btn-copiar"
+                  onclick="copiarTexto(copiar)"
                 >
-                  x
+                  Copiar
                 </button>
               </div>
-            </div>
-          {% else %}
-
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            style="z-index: 0; position: absolute"
-            id="myAlert"
-            role="alert"
-          >
-            {{ conexao }}
-            <button class="btn btn-dark" title="close" onclick="removeAlert()">
-              x
-            </button>
           </div>
-          {% endif %}
-        </div>
+
       </div>
+      
+    </div>
+    
+
+     
+
+  </div>
+          {% else %}
+         <!-- <div class="modal-backdrop fade show"></div>-->
+        <!--  <div class="modal fade show" id="meuModal" aria-hidden="true" aria-labelledby="meuModalLabel" style="display: block;">
+          </div>
+        -->
+          
+          <!-- Modal -->
+
+          <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+          </button>-->
+        
+          <div class="toast fade show" role="alert"  aria-live="assertive" aria-atomic="true" id="myAlert">
+
+            <div class="toast-header">
+              <label class="badge bg-warning me-1">!</label>
+              <strong class=”me-auto”>Aviso</strong>  
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="close" onclick="removeAlert()">
+                    </button>
+            </div>
+
+
+            <div class="toast-body">
+              {{ conexao }} 
+            </div>
+          </div>
+            
+          {% endif %}
+      
       <!--<textarea class="card" id="texto-a-copiar" rows="5" disabled="disabled"  >
                         
                       </textarea>-->
-    </div>
+    
 
     <script
       script
